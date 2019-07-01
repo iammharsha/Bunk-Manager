@@ -18,6 +18,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,42 +32,50 @@ public class MainActivity extends Activity {
     private RecyclerView.LayoutManager layoutManager;
     private FloatingActionButton fab;
     private JSONArray input;
-    private String obj;
+    private String obj="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String temp="";
+        int c;
+
         fab=(FloatingActionButton) findViewById(R.id.add_subject);
+
+        File file = getBaseContext().getFileStreamPath("subject.json");
+
+
+        if(file.exists()) {
+
+            JSONManip json=JSONManip.getInstance();
+            try {
+                input=json.readFile(this);
+                if(input!=null)
+                    recycle();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent=new Intent(MainActivity.this,SubjectInput.class);
+                if(input==null){
+                    intent.putExtra("avail",false);
+                }
+                else {
+                    intent.putExtra("avail",true);
+                    intent.putExtra("json",input.toString());
+                }
                 startActivity(intent);
 
             }
         });
-
-
-
-
-        //File file = new File("subject.json");
-        //if(file.exists()) {
-
-
-
-            try {
-                obj="[{\"name\":\"harsha\",\"date\":[\"getter\",\"setter\"]},{\"name\":\"hello\"}]";
-                input = new JSONArray(obj);
-                recycle();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        //}
 
 
     }

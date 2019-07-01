@@ -17,6 +17,32 @@
         android:paddingTop="7dp"
         android:text="Hello"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="5dp">
+
+
+    <TextView
+        android:id="@+id/min_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="Percent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="%"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
